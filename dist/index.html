@@ -100,6 +100,7 @@ const esc = value => String(value ?? "").replace(/[&<>'"]/g, char => ({"&":"&amp
 const fmt = date => new Intl.DateTimeFormat("ko-KR", { month: "long", day: "numeric", weekday: "short" }).format(new Date(date + "T00:00:00"));
 const key = date => `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
 const difficultyClass = difficulty => ({"이지":"diff-easy","노멀":"diff-normal","하드":"diff-hard","카오스":"diff-chaos","익스트림":"diff-extreme","데스티니":"diff-destiny"})[difficulty]||"diff-normal";
+const canDeleteSchedule = item => item?.ownerUid===state.user?.uid||state.profile?.name==="이상현";
 function toast(message){const el=$("#toast");el.textContent=message;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2200)}
 const loginPlaceholder=document.createElement("option");loginPlaceholder.value="";loginPlaceholder.textContent="사용자 선택";loginPlaceholder.disabled=true;loginPlaceholder.selected=true;
 $("#loginName").replaceChildren(loginPlaceholder,...memberDirectory.map(member=>{const option=document.createElement("option");option.value=member.email;option.textContent=member.name;return option}));
@@ -210,7 +211,7 @@ function fillDetail(item){
   $("#joinBtn").disabled=joined||full;
   $("#joinBtn").textContent=joined?"참가 중":full?"파티 정원 마감":"참가하기";
   $("#leaveBtn").disabled=!joined;
-  $("#deleteBtn").hidden=item.ownerUid!==state.user?.uid;
+  $("#deleteBtn").hidden=!canDeleteSchedule(item);
 }
 function detail(id){state.selected=state.schedules.find(item=>item.id===id);if(!state.selected)return;fillDetail(state.selected);$("#detailDialog").showModal()}
 
@@ -285,7 +286,7 @@ $("#leaveBtn").onclick=async()=>{
   } catch(error){console.error(error);toast("참가 취소를 저장하지 못했습니다.")}
 };
 $("#deleteBtn").onclick=async()=>{
-  if(!state.selected||state.selected.ownerUid!==state.user?.uid)return;
+  if(!state.selected||!canDeleteSchedule(state.selected))return;
   if(!confirm(`${state.selected.boss} 약속을 삭제할까요? 삭제하면 되돌릴 수 없습니다.`))return;
   const button=$("#deleteBtn");button.disabled=true;
   try{await remove(ref(db,`schedules/${state.selected.id}`));$("#detailDialog").close();state.selected=null;toast("약속을 삭제했습니다.")}
