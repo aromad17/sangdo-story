@@ -32,6 +32,8 @@
     }
     .diff-easy{--diff-color:#54d6aa;--diff-bg:#173b38}.diff-normal{--diff-color:#749cff;--diff-bg:#252f5a}.diff-hard{--diff-color:#f7cb56;--diff-bg:#493b21}.diff-chaos{--diff-color:#ff718c;--diff-bg:#4b2435}.diff-extreme{--diff-color:#c77dff;--diff-bg:#3d2758}.diff-destiny{--diff-color:#50e6ff;--diff-bg:#153f55}
     .event[class*="diff-"],.agenda-item[class*="diff-"]{border-left-color:var(--diff-color);background:var(--diff-bg)}.dot[class*="diff-"]{background:var(--diff-color);box-shadow:0 0 8px color-mix(in srgb,var(--diff-color) 55%,transparent)}.difficulty-text[class*="diff-"]{color:var(--diff-color)}
+    .boss-options{display:grid;gap:7px;max-height:260px;overflow:auto}.boss-option{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(110px,140px);align-items:center;gap:9px;padding:8px;border-radius:8px;background:#171d38}.boss-option:hover{background:#222a4d}.boss-option input[type="checkbox"]{width:auto;margin:0;accent-color:var(--gold)}.boss-option label{color:#fff;cursor:pointer;font-weight:700}.boss-option select{margin:0;padding:7px;min-width:0}.boss-option select:disabled{opacity:.45}.boss-option[hidden]{display:none}
+    @media(max-width:720px){.boss-options{max-height:300px}.boss-option{grid-template-columns:auto minmax(0,1fr);gap:7px}.boss-option select{grid-column:2;width:100%}}
   </style>
 </head>
 <body>
@@ -40,7 +42,7 @@
   <section class="summary"><article class="card next"><div class="label">다음 출정</div><strong id="nextBoss">일정을 불러오는 중</strong><span id="nextInfo"></span></article><article class="card metric"><div class="label">이번 달 약속</div><b id="monthCount">0</b></article><article class="card metric"><div class="label">참가 인원</div><b id="memberCount">0명</b></article><article class="card metric"><div class="label">남은 자리</div><b id="seatCount">0자리</b></article></section>
   <section class="layout"><section class="calendar"><div class="cal-head"><h2 id="monthTitle">2026년 9월</h2><div class="month-nav"><button class="nav" id="prevBtn" aria-label="이전 달">‹</button><button class="btn secondary" id="todayBtn">오늘</button><button class="nav" id="nextBtn" aria-label="다음 달">›</button></div></div><div class="weekdays"><div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div></div><div class="days" id="calendarDays"></div><div class="legend"><span><i class="dot diff-easy"></i>이지</span><span><i class="dot diff-normal"></i>노멀</span><span><i class="dot diff-hard"></i>하드</span><span><i class="dot diff-chaos"></i>카오스</span><span><i class="dot diff-extreme"></i>익스트림</span><span><i class="dot diff-destiny"></i>데스티니</span><span>일정을 누르면 상세 내용을 볼 수 있어요.</span></div></section><aside class="side"><h2>다가오는 약속</h2><div class="agenda" id="agenda"></div></aside></section></main>
   <dialog id="detailDialog"><div class="modal"><div class="modal-head"><div><div class="eyebrow" id="detailDate"></div><h2 id="detailTitle"></h2></div><button class="close" data-close aria-label="닫기">×</button></div><div class="details"><div class="detail"><small>출정 시간</small><b id="detailTime"></b></div><div class="detail"><small>파티장</small><b id="detailLeader"></b></div></div><div class="label">참가자 <span id="memberCapacity"></span></div><div class="members" id="detailMembers"></div><div class="note" id="detailNote"></div><div class="modal-actions"><button class="btn danger" id="deleteBtn" hidden>약속 삭제</button><button class="btn secondary" id="leaveBtn">내 이름으로 취소</button><button class="btn primary" id="joinBtn">참가하기</button></div></div></dialog>
-  <dialog id="formDialog"><form class="modal" id="scheduleForm"><div class="modal-head"><div><div class="eyebrow">NEW BOSS RUN</div><h2>보스 약속 잡기</h2></div><button type="button" class="close" data-close aria-label="닫기">×</button></div><div class="form-grid" style="margin-top:18px"><label class="field">날짜<input name="date" type="date" required /></label><label class="field">시간<input name="time" type="time" value="21:00" required /></label><label class="field">보스<select name="boss" id="bossSelect" required></select></label><label class="field">난이도<select name="difficulty" id="difficultySelect" required></select></label><div class="detail"><small>파티장 · 자동 지정</small><b id="formLeader"></b></div><label class="field">정원<input name="maxMembers" type="number" min="1" max="12" value="6" required /></label><div class="field full"><span>참가자 미리 추가</span><details class="member-picker" id="memberPicker"><summary id="memberPickerSummary">1명 선택됨</summary><div class="member-picker-menu"><input id="memberSearch" type="search" placeholder="이름 검색" autocomplete="off" /><div class="member-options" id="memberOptions"></div></div></details><small class="field-note">파티장은 기본으로 포함됩니다. 함께 갈 인원을 여러 명 선택할 수 있어요.</small></div><label class="field full">메모<textarea name="note" rows="2" placeholder="스펙, 준비물, 공략 메모 등"></textarea></label></div><div class="modal-actions"><button class="btn secondary" type="button" data-close>취소</button><button class="btn primary" type="submit">약속 만들기</button></div></form></dialog>
+  <dialog id="formDialog"><form class="modal" id="scheduleForm"><div class="modal-head"><div><div class="eyebrow">NEW BOSS RUN</div><h2>보스 약속 잡기</h2></div><button type="button" class="close" data-close aria-label="닫기">×</button></div><div class="form-grid" style="margin-top:18px"><label class="field">날짜<input name="date" type="date" required /></label><label class="field">시간<input name="time" type="time" value="21:00" required /></label><div class="field full"><span>보스 선택</span><details class="member-picker" id="bossPicker"><summary id="bossPickerSummary">보스를 선택하세요</summary><div class="member-picker-menu"><input id="bossSearch" type="search" placeholder="보스 검색" autocomplete="off" /><div class="boss-options" id="bossOptions"></div></div></details><small class="field-note">여러 보스를 선택하고 각 보스의 난이도를 따로 지정할 수 있어요.</small></div><div class="detail"><small>파티장 · 자동 지정</small><b id="formLeader"></b></div><label class="field">정원<input name="maxMembers" type="number" min="1" max="12" value="6" required /></label><div class="field full"><span>참가자 미리 추가</span><details class="member-picker" id="memberPicker"><summary id="memberPickerSummary">1명 선택됨</summary><div class="member-picker-menu"><input id="memberSearch" type="search" placeholder="이름 검색" autocomplete="off" /><div class="member-options" id="memberOptions"></div></div></details><small class="field-note">파티장은 기본으로 포함됩니다. 함께 갈 인원을 여러 명 선택할 수 있어요.</small></div><label class="field full">메모<textarea name="note" rows="2" placeholder="스펙, 준비물, 공략 메모 등"></textarea></label></div><div class="modal-actions"><button class="btn secondary" type="button" data-close>취소</button><button class="btn primary" type="submit">약속 만들기</button></div></form></dialog>
   <dialog id="passwordDialog"><form class="modal" id="passwordForm"><div class="modal-head"><div><div class="eyebrow">ACCOUNT SECURITY</div><h2 id="passwordTitle">비밀번호 변경</h2></div><button type="button" class="close" id="passwordClose" aria-label="닫기">×</button></div><p class="auth-help" id="passwordGuide">현재 비밀번호와 새 비밀번호를 입력해 주세요.</p><div class="form-grid" style="margin-top:18px"><label class="field full">현재 비밀번호<input name="currentPassword" type="password" autocomplete="current-password" required /></label><label class="field full">새 비밀번호<input name="newPassword" type="password" autocomplete="new-password" minlength="6" required /></label><label class="field full">새 비밀번호 확인<input name="confirmPassword" type="password" autocomplete="new-password" minlength="6" required /></label></div><p class="auth-error" id="passwordError" role="alert"></p><div class="modal-actions"><button class="btn secondary" type="button" id="passwordCancel">취소</button><button class="btn primary" type="submit">변경하기</button></div></form></dialog><div class="toast" id="toast"></div>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
@@ -100,28 +102,42 @@ const esc = value => String(value ?? "").replace(/[&<>'"]/g, char => ({"&":"&amp
 const fmt = date => new Intl.DateTimeFormat("ko-KR", { month: "long", day: "numeric", weekday: "short" }).format(new Date(date + "T00:00:00"));
 const key = date => `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
 const difficultyClass = difficulty => ({"이지":"diff-easy","노멀":"diff-normal","하드":"diff-hard","카오스":"diff-chaos","익스트림":"diff-extreme","데스티니":"diff-destiny"})[difficulty]||"diff-normal";
+const difficultyRank = ["이지","노멀","하드","카오스","익스트림","데스티니"];
+const bossRunsOf = item => Array.isArray(item?.bossRuns)?item.bossRuns:Object.values(item?.bossRuns||{});
+const bossSummary = item => {const runs=bossRunsOf(item);return runs.length>1?`${runs[0].name} 외 ${runs.length-1}`:runs[0]?.name||item.boss};
+const bossDetail = item => {const runs=bossRunsOf(item);return runs.length?runs.map(run=>`${run.name} · ${run.difficulty}`).join(" / "):`${item.boss} · ${item.difficulty}`};
+const difficultySummary = item => bossRunsOf(item).length>1?`최고 ${item.difficulty}`:item.difficulty;
 const canDeleteSchedule = item => item?.ownerUid===state.user?.uid||state.profile?.name==="이상현";
 function toast(message){const el=$("#toast");el.textContent=message;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2200)}
 const loginPlaceholder=document.createElement("option");loginPlaceholder.value="";loginPlaceholder.textContent="사용자 선택";loginPlaceholder.disabled=true;loginPlaceholder.selected=true;
 $("#loginName").replaceChildren(loginPlaceholder,...memberDirectory.map(member=>{const option=document.createElement("option");option.value=member.email;option.textContent=member.name;return option}));
-function setupBossOptions(){
-  const bossSelect=$("#bossSelect"),difficultySelect=$("#difficultySelect");
-  const advanced=document.createElement("optgroup");advanced.label="주간 · 월간 상위 보스";
-  bossCatalog.forEach(boss=>{
-    const option=document.createElement("option");option.value=boss.name;option.textContent=boss.name;
-    advanced.appendChild(option);
+function selectedBossRuns(){
+  return [...document.querySelectorAll("#bossOptions input[type=checkbox]:checked")].map(checkbox=>{
+    const row=checkbox.closest(".boss-option");
+    return {name:checkbox.value,difficulty:row.querySelector("select").value};
   });
-  const custom=document.createElement("option");custom.value="직접 입력";custom.textContent="직접 입력";advanced.appendChild(custom);
-  bossSelect.append(advanced);
-  const updateDifficulties=()=>{
-    const boss=bossCatalog.find(item=>item.name===bossSelect.value);
-    const difficulties=boss?.difficulties||["이지","노멀","하드","카오스","익스트림","데스티니"];
-    difficultySelect.replaceChildren(...difficulties.map(name=>{const option=document.createElement("option");option.value=name;option.textContent=name;return option}));
-  };
-  bossSelect.addEventListener("change",updateDifficulties);updateDifficulties();
-  return updateDifficulties;
 }
-const updateDifficultyOptions=setupBossOptions();
+function updateBossPickerSummary(){
+  const selected=selectedBossRuns(),names=selected.map(run=>run.name);
+  $("#bossPickerSummary").textContent=selected.length?`${selected.length}개 선택됨 · ${names.join(", ")}`:"보스를 선택하세요";
+}
+function setupBossPicker(){
+  const options=$("#bossOptions");
+  options.replaceChildren(...bossCatalog.map((boss,index)=>{
+    const row=document.createElement("div");row.className="boss-option";row.dataset.bossName=boss.name;
+    const checkbox=document.createElement("input");checkbox.type="checkbox";checkbox.value=boss.name;checkbox.id=`boss-option-${index}`;
+    const label=document.createElement("label");label.htmlFor=checkbox.id;label.textContent=boss.name;
+    const difficulty=document.createElement("select");difficulty.disabled=true;difficulty.setAttribute("aria-label",`${boss.name} 난이도`);
+    difficulty.replaceChildren(...boss.difficulties.map(name=>{const option=document.createElement("option");option.value=name;option.textContent=name;return option}));
+    checkbox.addEventListener("change",()=>{difficulty.disabled=!checkbox.checked;updateBossPickerSummary()});
+    difficulty.addEventListener("change",updateBossPickerSummary);row.append(checkbox,label,difficulty);return row;
+  }));
+  $("#bossSearch").value="";$("#bossPicker").open=false;updateBossPickerSummary();
+}
+$("#bossSearch").addEventListener("input",event=>{
+  const query=event.target.value.trim().toLowerCase();
+  document.querySelectorAll(".boss-option").forEach(option=>option.hidden=!option.dataset.bossName.toLowerCase().includes(query));
+});
 
 function selectedMembers(){return [...document.querySelectorAll("#memberOptions input[type=checkbox]:checked")].map(input=>input.value)}
 function updateMemberPickerSummary(){const selected=selectedMembers();$("#memberPickerSummary").textContent=`${selected.length}명 선택됨 · ${selected.join(", ")}`}
@@ -184,7 +200,7 @@ function render(){
     const date=new Date(start);date.setDate(start.getDate()+i);
     const iso=key(date),events=state.schedules.filter(item=>item.date===iso);
     let cls=date.getMonth()!==m?"muted":"";if(iso===key(new Date()))cls+=" today";
-    days.insertAdjacentHTML("beforeend",`<div class="day ${cls}"><div class="date"><span>${date.getDate()}</span></div>${events.map(item=>`<button class="event ${difficultyClass(item.difficulty)}" data-id="${esc(item.id)}"><span class="time">${esc(item.time)}</span>${esc(item.boss)}</button>`).join("")}</div>`);
+    days.insertAdjacentHTML("beforeend",`<div class="day ${cls}"><div class="date"><span>${date.getDate()}</span></div>${events.map(item=>`<button class="event ${difficultyClass(item.difficulty)}" data-id="${esc(item.id)}"><span class="time">${esc(item.time)}</span>${esc(bossSummary(item))}</button>`).join("")}</div>`);
   }
   document.querySelectorAll("[data-id]").forEach(el=>el.onclick=()=>detail(el.dataset.id));
   const inMonth=state.schedules.filter(item=>{const date=new Date(item.date+"T00:00:00");return date.getFullYear()===y&&date.getMonth()===m});
@@ -194,14 +210,14 @@ function render(){
   const today=key(new Date());
   const upcoming=[...state.schedules].filter(item=>item.date>=today).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
   const next=upcoming[0];
-  $("#nextBoss").textContent=next?`${next.boss} · ${next.difficulty}`:"등록된 약속 없음";
+  $("#nextBoss").textContent=next?`${bossSummary(next)} · ${difficultySummary(next)}`:"등록된 약속 없음";
   $("#nextInfo").textContent=next?`${fmt(next.date)} ${next.time} · ${(next.members||[]).length}/${next.maxMembers}명 집결`:"새 약속을 만들어 보세요.";
-  $("#agenda").innerHTML=upcoming.slice(0,5).map(item=>`<article class="agenda-item ${difficultyClass(item.difficulty)}" data-id="${esc(item.id)}"><div class="agenda-date">${fmt(item.date)} · ${esc(item.time)}</div><div class="agenda-title">${esc(item.boss)} <span style="color:var(--diff-color);font-size:.78rem">${esc(item.difficulty)}</span></div><div class="agenda-meta">${(item.members||[]).length}/${item.maxMembers}명 · 파티장 ${esc(item.leader)}</div></article>`).join("")||'<p class="label">아직 약속이 없어요.</p>';
+  $("#agenda").innerHTML=upcoming.slice(0,5).map(item=>`<article class="agenda-item ${difficultyClass(item.difficulty)}" data-id="${esc(item.id)}"><div class="agenda-date">${fmt(item.date)} · ${esc(item.time)}</div><div class="agenda-title">${esc(bossSummary(item))} <span style="color:var(--diff-color);font-size:.78rem">${esc(difficultySummary(item))}</span></div><div class="agenda-meta">${(item.members||[]).length}/${item.maxMembers}명 · 파티장 ${esc(item.leader)}</div></article>`).join("")||'<p class="label">아직 약속이 없어요.</p>';
   document.querySelectorAll(".agenda-item").forEach(el=>el.onclick=()=>detail(el.dataset.id));
 }
 
 function fillDetail(item){
-  $("#detailDate").textContent=fmt(item.date);$("#detailTitle").textContent=`${item.boss} · ${item.difficulty}`;
+  $("#detailDate").textContent=fmt(item.date);$("#detailTitle").textContent=bossDetail(item);
   $("#detailTitle").className=`difficulty-text ${difficultyClass(item.difficulty)}`;
   $("#detailTime").textContent=item.time;$("#detailLeader").textContent=item.leader;
   $("#memberCapacity").textContent=`${(item.members||[]).length}/${item.maxMembers}`;
@@ -250,7 +266,7 @@ $("#passwordForm").onsubmit=async event=>{
   finally{button.disabled=false}
 };
 
-$("#addBtn").onclick=()=>{$("#scheduleForm").reset();updateDifficultyOptions();$("#scheduleForm [name=date]").value=key(new Date());$("#formLeader").textContent=state.profile.name;setupMemberPicker();$("#formDialog").showModal()};
+$("#addBtn").onclick=()=>{$("#scheduleForm").reset();setupBossPicker();$("#scheduleForm [name=date]").value=key(new Date());$("#formLeader").textContent=state.profile.name;setupMemberPicker();$("#formDialog").showModal()};
 $("#prevBtn").onclick=()=>{state.month.setMonth(state.month.getMonth()-1);render()};
 $("#nextBtn").onclick=()=>{state.month.setMonth(state.month.getMonth()+1);render()};
 $("#todayBtn").onclick=()=>{const today=new Date();state.month=new Date(today.getFullYear(),today.getMonth(),1);render()};
@@ -259,7 +275,10 @@ $("#scheduleForm").onsubmit=async event=>{
   event.preventDefault();const button=event.submitter;button.disabled=true;
   try {
     const item=Object.fromEntries(new FormData(event.target));
-    if(item.boss==="직접 입력")item.boss=prompt("보스 이름을 입력하세요.")||"미정";
+    const bossRuns=selectedBossRuns();
+    if(!bossRuns.length){toast("보스를 한 개 이상 선택해 주세요.");return}
+    item.bossRuns=bossRuns;item.boss=bossRuns.map(run=>run.name).join(", ");
+    item.difficulty=bossRuns.reduce((highest,run)=>difficultyRank.indexOf(run.difficulty)>difficultyRank.indexOf(highest)?run.difficulty:highest,bossRuns[0].difficulty);
     item.id="boss-"+Date.now();item.maxMembers=Number(item.maxMembers);item.leader=state.profile.name;item.ownerUid=state.user.uid;item.members=selectedMembers();
     if(item.members.length>item.maxMembers){toast(`선택한 인원이 정원 ${item.maxMembers}명보다 많습니다.`);return}
     await set(ref(db,`schedules/${item.id}`),item);$("#formDialog").close();toast("새 보스 약속을 서버에 저장했어요!");
