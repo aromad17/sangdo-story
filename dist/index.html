@@ -78,7 +78,8 @@ const fmt = date => new Intl.DateTimeFormat("ko-KR", { month: "long", day: "nume
 const key = date => `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
 function toast(message){const el=$("#toast");el.textContent=message;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2200)}
 function setSync(message, ok=false){const el=$("#syncStatus");el.textContent=message;el.style.color=ok?"#54d6aa":"#f7cb56"}
-$("#loginName").replaceChildren(...memberDirectory.map(member=>{const option=document.createElement("option");option.value=member.email;option.textContent=member.name;return option}));
+const loginPlaceholder=document.createElement("option");loginPlaceholder.value="";loginPlaceholder.textContent="사용자 선택";loginPlaceholder.disabled=true;loginPlaceholder.selected=true;
+$("#loginName").replaceChildren(loginPlaceholder,...memberDirectory.map(member=>{const option=document.createElement("option");option.value=member.email;option.textContent=member.name;return option}));
 function setupBossOptions(){
   const bossSelect=$("#bossSelect"),difficultySelect=$("#difficultySelect");
   const advanced=document.createElement("optgroup");advanced.label="주간 · 월간 상위 보스";
