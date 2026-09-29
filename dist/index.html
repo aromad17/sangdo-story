@@ -30,13 +30,15 @@
       .app{padding-inline:7px}.calendar{padding:6px}.day{min-height:76px;padding-inline:2px}.event{font-size:.62rem}.weekdays div{font-size:.68rem}
       .summary{gap:7px}.card{padding:11px}.label{font-size:.78rem}.metric b{font-size:1.3rem}.details{grid-template-columns:1fr}
     }
+    .diff-easy{--diff-color:#54d6aa;--diff-bg:#173b38}.diff-normal{--diff-color:#749cff;--diff-bg:#252f5a}.diff-hard{--diff-color:#f7cb56;--diff-bg:#493b21}.diff-chaos{--diff-color:#ff718c;--diff-bg:#4b2435}.diff-extreme{--diff-color:#c77dff;--diff-bg:#3d2758}.diff-destiny{--diff-color:#50e6ff;--diff-bg:#153f55}
+    .event[class*="diff-"],.agenda-item[class*="diff-"]{border-left-color:var(--diff-color);background:var(--diff-bg)}.dot[class*="diff-"]{background:var(--diff-color);box-shadow:0 0 8px color-mix(in srgb,var(--diff-color) 55%,transparent)}.difficulty-text[class*="diff-"]{color:var(--diff-color)}
   </style>
 </head>
 <body>
   <section class="auth-shell" id="authShell"><div class="auth-card"><div class="auth-brand"><div class="crest">⚔</div><div><div class="eyebrow">MAPLE BOSS SCHEDULE</div><h1>로그인</h1></div></div><form class="auth-form" id="loginForm"><label class="field">이름<select id="loginName" required></select></label><label class="field">비밀번호<input id="loginPassword" type="password" autocomplete="current-password" required /></label><p class="auth-error" id="loginError" role="alert"></p><button class="btn primary" type="submit">로그인</button></form><p class="auth-help">처음 로그인하는 경우 초기 비밀번호는 123456입니다. 로그인 후 본인만의 비밀번호로 변경해 주세요.</p></div></section>
   <main class="app" id="appShell" hidden><header class="top"><div class="brand"><div class="crest">⚔</div><div class="eyebrow">MAPLE BOSS SCHEDULE</div></div><div class="actions"><span class="user-name" id="currentUserName"></span><button class="btn secondary" id="passwordBtn">비밀번호 변경</button><button class="btn secondary" id="logoutBtn">로그아웃</button><span id="syncStatus" class="label" role="status">서버 연결 중…</span><button class="btn primary" id="addBtn">+ 약속 잡기</button></div></header>
   <section class="summary"><article class="card next"><div class="label">다음 출정</div><strong id="nextBoss">일정을 불러오는 중</strong><span id="nextInfo"></span></article><article class="card metric"><div class="label">이번 달 약속</div><b id="monthCount">0</b></article><article class="card metric"><div class="label">참가 인원</div><b id="memberCount">0명</b></article><article class="card metric"><div class="label">남은 자리</div><b id="seatCount">0자리</b></article></section>
-  <section class="layout"><section class="calendar"><div class="cal-head"><h2 id="monthTitle">2026년 9월</h2><div class="month-nav"><button class="nav" id="prevBtn" aria-label="이전 달">‹</button><button class="btn secondary" id="todayBtn">오늘</button><button class="nav" id="nextBtn" aria-label="다음 달">›</button></div></div><div class="weekdays"><div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div></div><div class="days" id="calendarDays"></div><div class="legend"><span><i class="dot"></i>일반 난이도</span><span><i class="dot gold"></i>하드 난이도</span><span>일정을 누르면 상세 내용을 볼 수 있어요.</span></div></section><aside class="side"><h2>다가오는 약속</h2><div class="agenda" id="agenda"></div></aside></section></main>
+  <section class="layout"><section class="calendar"><div class="cal-head"><h2 id="monthTitle">2026년 9월</h2><div class="month-nav"><button class="nav" id="prevBtn" aria-label="이전 달">‹</button><button class="btn secondary" id="todayBtn">오늘</button><button class="nav" id="nextBtn" aria-label="다음 달">›</button></div></div><div class="weekdays"><div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div></div><div class="days" id="calendarDays"></div><div class="legend"><span><i class="dot diff-easy"></i>이지</span><span><i class="dot diff-normal"></i>노멀</span><span><i class="dot diff-hard"></i>하드</span><span><i class="dot diff-chaos"></i>카오스</span><span><i class="dot diff-extreme"></i>익스트림</span><span><i class="dot diff-destiny"></i>데스티니</span><span>일정을 누르면 상세 내용을 볼 수 있어요.</span></div></section><aside class="side"><h2>다가오는 약속</h2><div class="agenda" id="agenda"></div></aside></section></main>
   <dialog id="detailDialog"><div class="modal"><div class="modal-head"><div><div class="eyebrow" id="detailDate"></div><h2 id="detailTitle"></h2></div><button class="close" data-close aria-label="닫기">×</button></div><div class="details"><div class="detail"><small>출정 시간</small><b id="detailTime"></b></div><div class="detail"><small>파티장</small><b id="detailLeader"></b></div></div><div class="label">참가자 <span id="memberCapacity"></span></div><div class="members" id="detailMembers"></div><div class="note" id="detailNote"></div><div class="modal-actions"><button class="btn danger" id="deleteBtn" hidden>약속 삭제</button><button class="btn secondary" id="leaveBtn">내 이름으로 취소</button><button class="btn primary" id="joinBtn">참가하기</button></div></div></dialog>
   <dialog id="formDialog"><form class="modal" id="scheduleForm"><div class="modal-head"><div><div class="eyebrow">NEW BOSS RUN</div><h2>보스 약속 잡기</h2></div><button type="button" class="close" data-close aria-label="닫기">×</button></div><div class="form-grid" style="margin-top:18px"><label class="field">날짜<input name="date" type="date" required /></label><label class="field">시간<input name="time" type="time" value="21:00" required /></label><label class="field">보스<select name="boss" id="bossSelect" required></select></label><label class="field">난이도<select name="difficulty" id="difficultySelect" required></select></label><div class="detail"><small>파티장 · 자동 지정</small><b id="formLeader"></b></div><label class="field">정원<input name="maxMembers" type="number" min="1" max="12" value="6" required /></label><div class="field full"><span>참가자 미리 추가</span><details class="member-picker" id="memberPicker"><summary id="memberPickerSummary">1명 선택됨</summary><div class="member-picker-menu"><input id="memberSearch" type="search" placeholder="이름 검색" autocomplete="off" /><div class="member-options" id="memberOptions"></div></div></details><small class="field-note">파티장은 기본으로 포함됩니다. 함께 갈 인원을 여러 명 선택할 수 있어요.</small></div><label class="field full">메모<textarea name="note" rows="2" placeholder="스펙, 준비물, 공략 메모 등"></textarea></label></div><div class="modal-actions"><button class="btn secondary" type="button" data-close>취소</button><button class="btn primary" type="submit">약속 만들기</button></div></form></dialog>
   <dialog id="passwordDialog"><form class="modal" id="passwordForm"><div class="modal-head"><div><div class="eyebrow">ACCOUNT SECURITY</div><h2 id="passwordTitle">비밀번호 변경</h2></div><button type="button" class="close" id="passwordClose" aria-label="닫기">×</button></div><p class="auth-help" id="passwordGuide">현재 비밀번호와 새 비밀번호를 입력해 주세요.</p><div class="form-grid" style="margin-top:18px"><label class="field full">현재 비밀번호<input name="currentPassword" type="password" autocomplete="current-password" required /></label><label class="field full">새 비밀번호<input name="newPassword" type="password" autocomplete="new-password" minlength="6" required /></label><label class="field full">새 비밀번호 확인<input name="confirmPassword" type="password" autocomplete="new-password" minlength="6" required /></label></div><p class="auth-error" id="passwordError" role="alert"></p><div class="modal-actions"><button class="btn secondary" type="button" id="passwordCancel">취소</button><button class="btn primary" type="submit">변경하기</button></div></form></dialog><div class="toast" id="toast"></div>
@@ -83,20 +85,21 @@ const bossCatalog = [
   {name:"진 힐라", difficulties:["노멀","하드"]},
   {name:"친위대장 듄켈", difficulties:["노멀","하드"]},
   {name:"검은 마법사", difficulties:["하드","익스트림"]},
-  {name:"선택받은 세렌", difficulties:["노멀","하드","익스트림"]},
-  {name:"감시자 칼로스", difficulties:["이지","노멀","카오스","익스트림"]},
-  {name:"최초의 대적자", difficulties:["이지","노멀","하드","익스트림"]},
-  {name:"카링", difficulties:["이지","노멀","하드","익스트림"]},
+  {name:"선택받은 세렌", difficulties:["노멀","하드","익스트림","데스티니"]},
+  {name:"감시자 칼로스", difficulties:["이지","노멀","카오스","익스트림","데스티니"]},
+  {name:"최초의 대적자", difficulties:["이지","노멀","하드","익스트림","데스티니"]},
+  {name:"카링", difficulties:["이지","노멀","하드","익스트림","데스티니"]},
   {name:"벨로나", difficulties:["이지","노멀","하드"]},
   {name:"찬란한 흉성", difficulties:["노멀","하드"]},
-  {name:"림보", difficulties:["노멀","하드"]},
-  {name:"발드릭스", difficulties:["노멀","하드"]},
+  {name:"림보", difficulties:["노멀","하드","데스티니"]},
+  {name:"발드릭스", difficulties:["노멀","하드","데스티니"]},
   {name:"유피테르", difficulties:["노멀","하드"]}
 ];
 const $ = selector => document.querySelector(selector);
 const esc = value => String(value ?? "").replace(/[&<>'"]/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"})[char]);
 const fmt = date => new Intl.DateTimeFormat("ko-KR", { month: "long", day: "numeric", weekday: "short" }).format(new Date(date + "T00:00:00"));
 const key = date => `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
+const difficultyClass = difficulty => ({"이지":"diff-easy","노멀":"diff-normal","하드":"diff-hard","카오스":"diff-chaos","익스트림":"diff-extreme","데스티니":"diff-destiny"})[difficulty]||"diff-normal";
 function toast(message){const el=$("#toast");el.textContent=message;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2200)}
 function setSync(message, ok=false){const el=$("#syncStatus");el.textContent=message;el.style.color=ok?"#54d6aa":"#f7cb56"}
 const loginPlaceholder=document.createElement("option");loginPlaceholder.value="";loginPlaceholder.textContent="사용자 선택";loginPlaceholder.disabled=true;loginPlaceholder.selected=true;
@@ -112,7 +115,7 @@ function setupBossOptions(){
   bossSelect.append(advanced);
   const updateDifficulties=()=>{
     const boss=bossCatalog.find(item=>item.name===bossSelect.value);
-    const difficulties=boss?.difficulties||["이지","노멀","하드","카오스","익스트림"];
+    const difficulties=boss?.difficulties||["이지","노멀","하드","카오스","익스트림","데스티니"];
     difficultySelect.replaceChildren(...difficulties.map(name=>{const option=document.createElement("option");option.value=name;option.textContent=name;return option}));
   };
   bossSelect.addEventListener("change",updateDifficulties);updateDifficulties();
@@ -182,7 +185,7 @@ function render(){
     const date=new Date(start);date.setDate(start.getDate()+i);
     const iso=key(date),events=state.schedules.filter(item=>item.date===iso);
     let cls=date.getMonth()!==m?"muted":"";if(iso===key(new Date()))cls+=" today";
-    days.insertAdjacentHTML("beforeend",`<div class="day ${cls}"><div class="date"><span>${date.getDate()}</span></div>${events.map(item=>`<button class="event ${item.difficulty==="하드"?"hard":""}" data-id="${esc(item.id)}"><span class="time">${esc(item.time)}</span>${esc(item.boss)}</button>`).join("")}</div>`);
+    days.insertAdjacentHTML("beforeend",`<div class="day ${cls}"><div class="date"><span>${date.getDate()}</span></div>${events.map(item=>`<button class="event ${difficultyClass(item.difficulty)}" data-id="${esc(item.id)}"><span class="time">${esc(item.time)}</span>${esc(item.boss)}</button>`).join("")}</div>`);
   }
   document.querySelectorAll("[data-id]").forEach(el=>el.onclick=()=>detail(el.dataset.id));
   const inMonth=state.schedules.filter(item=>{const date=new Date(item.date+"T00:00:00");return date.getFullYear()===y&&date.getMonth()===m});
@@ -194,12 +197,13 @@ function render(){
   const next=upcoming[0];
   $("#nextBoss").textContent=next?`${next.boss} · ${next.difficulty}`:"등록된 약속 없음";
   $("#nextInfo").textContent=next?`${fmt(next.date)} ${next.time} · ${(next.members||[]).length}/${next.maxMembers}명 집결`:"새 약속을 만들어 보세요.";
-  $("#agenda").innerHTML=upcoming.slice(0,5).map(item=>`<article class="agenda-item ${item.difficulty==="하드"?"hard":""}" data-id="${esc(item.id)}"><div class="agenda-date">${fmt(item.date)} · ${esc(item.time)}</div><div class="agenda-title">${esc(item.boss)} <span style="color:#c6cfef;font-size:.78rem">${esc(item.difficulty)}</span></div><div class="agenda-meta">${(item.members||[]).length}/${item.maxMembers}명 · 파티장 ${esc(item.leader)}</div></article>`).join("")||'<p class="label">아직 약속이 없어요.</p>';
+  $("#agenda").innerHTML=upcoming.slice(0,5).map(item=>`<article class="agenda-item ${difficultyClass(item.difficulty)}" data-id="${esc(item.id)}"><div class="agenda-date">${fmt(item.date)} · ${esc(item.time)}</div><div class="agenda-title">${esc(item.boss)} <span style="color:var(--diff-color);font-size:.78rem">${esc(item.difficulty)}</span></div><div class="agenda-meta">${(item.members||[]).length}/${item.maxMembers}명 · 파티장 ${esc(item.leader)}</div></article>`).join("")||'<p class="label">아직 약속이 없어요.</p>';
   document.querySelectorAll(".agenda-item").forEach(el=>el.onclick=()=>detail(el.dataset.id));
 }
 
 function fillDetail(item){
   $("#detailDate").textContent=fmt(item.date);$("#detailTitle").textContent=`${item.boss} · ${item.difficulty}`;
+  $("#detailTitle").className=`difficulty-text ${difficultyClass(item.difficulty)}`;
   $("#detailTime").textContent=item.time;$("#detailLeader").textContent=item.leader;
   $("#memberCapacity").textContent=`${(item.members||[]).length}/${item.maxMembers}`;
   $("#detailMembers").innerHTML=(item.members||[]).map(name=>`<span class="member">${esc(name)}</span>`).join("");
