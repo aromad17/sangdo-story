@@ -1,0 +1,48 @@
+{
+  "schedules": [
+    {
+      "id": "boss-001",
+      "date": "2026-09-30",
+      "time": "21:30",
+      "boss": "검은 마법사",
+      "difficulty": "하드",
+      "leader": "아델왕",
+      "members": ["아델왕", "루미너스", "비숍핑", "나로짱", "제논"],
+      "maxMembers": 6,
+      "note": "1페 연습 겸 클리어 도전"
+    },
+    {
+      "id": "boss-002",
+      "date": "2026-09-26",
+      "time": "22:00",
+      "boss": "진 힐라",
+      "difficulty": "하드",
+      "leader": "비숍핑",
+      "members": ["비숍핑", "아델왕", "나로짱", "루미너스", "카인"],
+      "maxMembers": 6,
+      "note": "파티 보정 42층 이상"
+    },
+    {
+      "id": "boss-003",
+      "date": "2026-10-03",
+      "time": "20:00",
+      "boss": "세렌",
+      "difficulty": "노멀",
+      "leader": "루미너스",
+      "members": ["루미너스", "아델왕", "비숍핑"],
+      "maxMembers": 6,
+      "note": "첫 트라이, 해 뜨기 전 컷 연습"
+    },
+    {
+      "id": "boss-004",
+      "date": "2026-09-24",
+      "time": "20:30",
+      "boss": "스우",
+      "difficulty": "노멀",
+      "leader": "나로짱",
+      "members": ["나로짱", "아델왕", "카인", "제논"],
+      "maxMembers": 6,
+      "note": "주간 보스 빠르게"
+    }
+  ]
+}
