@@ -1,0 +1,69 @@
+{
+  "rules": {
+    "users": {
+      "nFJLuz1QEUbIqo2toldhFkuOapm1": {
+        ".read": "auth != null && auth.uid === 'nFJLuz1QEUbIqo2toldhFkuOapm1'",
+        ".write": "auth != null && auth.uid === 'nFJLuz1QEUbIqo2toldhFkuOapm1'",
+        ".validate": "newData.hasChildren(['name', 'email', 'active', 'mustChangePassword']) && newData.child('name').val() === '권승환' && newData.child('email').val() === 'member01@sangdo-story.example.com' && newData.child('active').val() === true && newData.child('mustChangePassword').isBoolean()"
+      },
+      "5NwYTpA4oihoQgfkjHmBDJ6Bsik1": {
+        ".read": "auth != null && auth.uid === '5NwYTpA4oihoQgfkjHmBDJ6Bsik1'",
+        ".write": "auth != null && auth.uid === '5NwYTpA4oihoQgfkjHmBDJ6Bsik1'",
+        ".validate": "newData.hasChildren(['name', 'email', 'active', 'mustChangePassword']) && newData.child('name').val() === '문기훈' && newData.child('email').val() === 'member02@sangdo-story.example.com' && newData.child('active').val() === true && newData.child('mustChangePassword').isBoolean()"
+      },
+      "rgEI1ZlyuQfIACXPIRA1EwKK4up2": {
+        ".read": "auth != null && auth.uid === 'rgEI1ZlyuQfIACXPIRA1EwKK4up2'",
+        ".write": "auth != null && auth.uid === 'rgEI1ZlyuQfIACXPIRA1EwKK4up2'",
+        ".validate": "newData.hasChildren(['name', 'email', 'active', 'mustChangePassword']) && newData.child('name').val() === '김상민' && newData.child('email').val() === 'member03@sangdo-story.example.com' && newData.child('active').val() === true && newData.child('mustChangePassword').isBoolean()"
+      },
+      "CvxstMF89mXmigC2r9vxDek8di62": {
+        ".read": "auth != null && auth.uid === 'CvxstMF89mXmigC2r9vxDek8di62'",
+        ".write": "auth != null && auth.uid === 'CvxstMF89mXmigC2r9vxDek8di62'",
+        ".validate": "newData.hasChildren(['name', 'email', 'active', 'mustChangePassword']) && newData.child('name').val() === '김한성' && newData.child('email').val() === 'member04@sangdo-story.example.com' && newData.child('active').val() === true && newData.child('mustChangePassword').isBoolean()"
+      },
+      "7Bf0cCxj47VySayMTdmqYSmY2yG2": {
+        ".read": "auth != null && auth.uid === '7Bf0cCxj47VySayMTdmqYSmY2yG2'",
+        ".write": "auth != null && auth.uid === '7Bf0cCxj47VySayMTdmqYSmY2yG2'",
+        ".validate": "newData.hasChildren(['name', 'email', 'active', 'mustChangePassword']) && newData.child('name').val() === '김휘중' && newData.child('email').val() === 'member05@sangdo-story.example.com' && newData.child('active').val() === true && newData.child('mustChangePassword').isBoolean()"
+      },
+      "X3w2sY9oPjUZZtDMecz4lkYKMP53": {
+        ".read": "auth != null && auth.uid === 'X3w2sY9oPjUZZtDMecz4lkYKMP53'",
+        ".write": "auth != null && auth.uid === 'X3w2sY9oPjUZZtDMecz4lkYKMP53'",
+        ".validate": "newData.hasChildren(['name', 'email', 'active', 'mustChangePassword']) && newData.child('name').val() === '안균혁' && newData.child('email').val() === 'member06@sangdo-story.example.com' && newData.child('active').val() === true && newData.child('mustChangePassword').isBoolean()"
+      },
+      "79Cv8OTDh5d3TUZ6sZYGuvDePyg1": {
+        ".read": "auth != null && auth.uid === '79Cv8OTDh5d3TUZ6sZYGuvDePyg1'",
+        ".write": "auth != null && auth.uid === '79Cv8OTDh5d3TUZ6sZYGuvDePyg1'",
+        ".validate": "newData.hasChildren(['name', 'email', 'active', 'mustChangePassword']) && newData.child('name').val() === '유수빈' && newData.child('email').val() === 'member07@sangdo-story.example.com' && newData.child('active').val() === true && newData.child('mustChangePassword').isBoolean()"
+      },
+      "ZjHNKsJ5m0WOFf44VCQJ4C0lWLo2": {
+        ".read": "auth != null && auth.uid === 'ZjHNKsJ5m0WOFf44VCQJ4C0lWLo2'",
+        ".write": "auth != null && auth.uid === 'ZjHNKsJ5m0WOFf44VCQJ4C0lWLo2'",
+        ".validate": "newData.hasChildren(['name', 'email', 'active', 'mustChangePassword']) && newData.child('name').val() === '나재현' && newData.child('email').val() === 'member08@sangdo-story.example.com' && newData.child('active').val() === true && newData.child('mustChangePassword').isBoolean()"
+      },
+      "8rF7jN0ZeSeJkHOaaiqmDLvRf1k2": {
+        ".read": "auth != null && auth.uid === '8rF7jN0ZeSeJkHOaaiqmDLvRf1k2'",
+        ".write": "auth != null && auth.uid === '8rF7jN0ZeSeJkHOaaiqmDLvRf1k2'",
+        ".validate": "newData.hasChildren(['name', 'email', 'active', 'mustChangePassword']) && newData.child('name').val() === '조형련' && newData.child('email').val() === 'member09@sangdo-story.example.com' && newData.child('active').val() === true && newData.child('mustChangePassword').isBoolean()"
+      },
+      "YbUHbsyAwFgFze3ENMFUZ4J6Why1": {
+        ".read": "auth != null && auth.uid === 'YbUHbsyAwFgFze3ENMFUZ4J6Why1'",
+        ".write": "auth != null && auth.uid === 'YbUHbsyAwFgFze3ENMFUZ4J6Why1'",
+        ".validate": "newData.hasChildren(['name', 'email', 'active', 'mustChangePassword']) && newData.child('name').val() === '이상현' && newData.child('email').val() === 'member10@sangdo-story.example.com' && newData.child('active').val() === true && newData.child('mustChangePassword').isBoolean()"
+      },
+      "$other": {
+        ".read": false,
+        ".write": false
+      }
+    },
+    "schedules": {
+      ".read": "auth != null && root.child('users').child(auth.uid).child('active').val() === true",
+      "$scheduleId": {
+        ".write": "auth != null && root.child('users').child(auth.uid).child('active').val() === true && ((!data.exists() && newData.exists() && newData.child('ownerUid').val() === auth.uid && newData.child('leader').val() === root.child('users').child(auth.uid).child('name').val()) || (data.exists() && !newData.exists() && data.child('ownerUid').val() === auth.uid) || (data.exists() && newData.exists() && newData.child('id').val() === data.child('id').val() && newData.child('date').val() === data.child('date').val() && newData.child('time').val() === data.child('time').val() && newData.child('boss').val() === data.child('boss').val() && newData.child('difficulty').val() === data.child('difficulty').val() && newData.child('leader').val() === data.child('leader').val() && newData.child('maxMembers').val() === data.child('maxMembers').val() && newData.child('note').val() === data.child('note').val() && newData.child('ownerUid').val() === data.child('ownerUid').val()))",
+        ".validate": "newData.hasChildren(['id', 'date', 'time', 'boss', 'difficulty', 'leader', 'members', 'maxMembers']) && newData.child('id').isString() && newData.child('date').isString() && newData.child('time').isString() && newData.child('boss').isString() && newData.child('leader').isString() && newData.child('maxMembers').isNumber() && newData.child('maxMembers').val() >= 1 && newData.child('maxMembers').val() <= 12 && (data.exists() || (newData.child('ownerUid').isString() && newData.child('ownerUid').val() === auth.uid))"
+      }
+    },
+    ".read": false,
+    ".write": false
+  }
+}
