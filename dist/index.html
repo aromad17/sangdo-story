@@ -14,7 +14,7 @@
     @media(max-width:720px){
       body{background:radial-gradient(circle at 20% 0,#22295a 0,transparent 24rem),var(--bg)}
       .app{padding:16px 10px 30px}.top{gap:14px;margin-bottom:18px}.brand{width:100%}.crest{width:42px;height:42px;border-radius:12px;font-size:22px}
-      .actions{display:grid;grid-template-columns:1fr 1fr;width:100%;gap:8px}.actions .user-name,.actions #syncStatus{grid-column:1/-1}.actions #addBtn{grid-column:1/-1}.actions .btn{min-height:44px;padding:10px 12px}.actions #syncStatus{order:4;text-align:right}.actions #addBtn{order:5}
+      .actions{display:grid;grid-template-columns:1fr 1fr;width:100%;gap:8px}.actions .user-name{grid-column:1/-1}.actions #addBtn{grid-column:1/-1}.actions .btn{min-height:44px;padding:10px 12px}.actions #addBtn{order:5}
       .summary{grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}.summary .next{grid-column:1/-1}.card{padding:13px;border-radius:13px}.metric b{font-size:1.45rem}.next strong{font-size:1.05rem}
       .layout{gap:12px}.calendar,.side{border-radius:14px}.calendar{padding:9px;overflow:hidden}.side{display:block;padding:14px}.side h2{font-size:1rem}
       .cal-head{align-items:flex-start;gap:9px;margin:2px 2px 12px}.cal-head h2{font-size:1rem;padding-top:8px}.month-nav{gap:5px}.nav{width:40px;height:40px}.month-nav .btn{min-height:40px;padding:8px 11px}
@@ -35,8 +35,8 @@
   </style>
 </head>
 <body>
-  <section class="auth-shell" id="authShell"><div class="auth-card"><div class="auth-brand"><div class="crest">⚔</div><div><div class="eyebrow">MAPLE BOSS SCHEDULE</div><h1>로그인</h1></div></div><form class="auth-form" id="loginForm"><label class="field">이름<select id="loginName" required></select></label><label class="field">비밀번호<input id="loginPassword" type="password" autocomplete="current-password" required /></label><p class="auth-error" id="loginError" role="alert"></p><button class="btn primary" type="submit">로그인</button></form><p class="auth-help">처음 로그인하는 경우 초기 비밀번호는 123456입니다. 로그인 후 본인만의 비밀번호로 변경해 주세요.</p></div></section>
-  <main class="app" id="appShell" hidden><header class="top"><div class="brand"><div class="crest">⚔</div><div class="eyebrow">MAPLE BOSS SCHEDULE</div></div><div class="actions"><span class="user-name" id="currentUserName"></span><button class="btn secondary" id="passwordBtn">비밀번호 변경</button><button class="btn secondary" id="logoutBtn">로그아웃</button><span id="syncStatus" class="label" role="status">서버 연결 중…</span><button class="btn primary" id="addBtn">+ 약속 잡기</button></div></header>
+  <section class="auth-shell" id="authShell"><div class="auth-card"><div class="auth-brand"><div class="crest">⚔</div><div><div class="eyebrow">SANGDO-STORY</div><h1>로그인</h1></div></div><form class="auth-form" id="loginForm"><label class="field">이름<select id="loginName" required></select></label><label class="field">비밀번호<input id="loginPassword" type="password" autocomplete="current-password" required /></label><p class="auth-error" id="loginError" role="alert"></p><button class="btn primary" type="submit">로그인</button></form><p class="auth-help">처음 로그인하는 경우 초기 비밀번호는 123456입니다. 로그인 후 본인만의 비밀번호로 변경해 주세요.</p></div></section>
+  <main class="app" id="appShell" hidden><header class="top"><div class="brand"><div class="crest">⚔</div><div class="eyebrow">SANGDO-STORY</div></div><div class="actions"><span class="user-name" id="currentUserName"></span><button class="btn secondary" id="passwordBtn">비밀번호 변경</button><button class="btn secondary" id="logoutBtn">로그아웃</button><button class="btn primary" id="addBtn">+ 약속 잡기</button></div></header>
   <section class="summary"><article class="card next"><div class="label">다음 출정</div><strong id="nextBoss">일정을 불러오는 중</strong><span id="nextInfo"></span></article><article class="card metric"><div class="label">이번 달 약속</div><b id="monthCount">0</b></article><article class="card metric"><div class="label">참가 인원</div><b id="memberCount">0명</b></article><article class="card metric"><div class="label">남은 자리</div><b id="seatCount">0자리</b></article></section>
   <section class="layout"><section class="calendar"><div class="cal-head"><h2 id="monthTitle">2026년 9월</h2><div class="month-nav"><button class="nav" id="prevBtn" aria-label="이전 달">‹</button><button class="btn secondary" id="todayBtn">오늘</button><button class="nav" id="nextBtn" aria-label="다음 달">›</button></div></div><div class="weekdays"><div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div></div><div class="days" id="calendarDays"></div><div class="legend"><span><i class="dot diff-easy"></i>이지</span><span><i class="dot diff-normal"></i>노멀</span><span><i class="dot diff-hard"></i>하드</span><span><i class="dot diff-chaos"></i>카오스</span><span><i class="dot diff-extreme"></i>익스트림</span><span><i class="dot diff-destiny"></i>데스티니</span><span>일정을 누르면 상세 내용을 볼 수 있어요.</span></div></section><aside class="side"><h2>다가오는 약속</h2><div class="agenda" id="agenda"></div></aside></section></main>
   <dialog id="detailDialog"><div class="modal"><div class="modal-head"><div><div class="eyebrow" id="detailDate"></div><h2 id="detailTitle"></h2></div><button class="close" data-close aria-label="닫기">×</button></div><div class="details"><div class="detail"><small>출정 시간</small><b id="detailTime"></b></div><div class="detail"><small>파티장</small><b id="detailLeader"></b></div></div><div class="label">참가자 <span id="memberCapacity"></span></div><div class="members" id="detailMembers"></div><div class="note" id="detailNote"></div><div class="modal-actions"><button class="btn danger" id="deleteBtn" hidden>약속 삭제</button><button class="btn secondary" id="leaveBtn">내 이름으로 취소</button><button class="btn primary" id="joinBtn">참가하기</button></div></div></dialog>
@@ -101,7 +101,6 @@ const fmt = date => new Intl.DateTimeFormat("ko-KR", { month: "long", day: "nume
 const key = date => `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
 const difficultyClass = difficulty => ({"이지":"diff-easy","노멀":"diff-normal","하드":"diff-hard","카오스":"diff-chaos","익스트림":"diff-extreme","데스티니":"diff-destiny"})[difficulty]||"diff-normal";
 function toast(message){const el=$("#toast");el.textContent=message;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2200)}
-function setSync(message, ok=false){const el=$("#syncStatus");el.textContent=message;el.style.color=ok?"#54d6aa":"#f7cb56"}
 const loginPlaceholder=document.createElement("option");loginPlaceholder.value="";loginPlaceholder.textContent="사용자 선택";loginPlaceholder.disabled=true;loginPlaceholder.selected=true;
 $("#loginName").replaceChildren(loginPlaceholder,...memberDirectory.map(member=>{const option=document.createElement("option");option.value=member.email;option.textContent=member.name;return option}));
 function setupBossOptions(){
@@ -151,8 +150,7 @@ function subscribeSchedules(){
       if (state.selected) state.selected = state.schedules.find(item => item.id === state.selected.id) || null;
       render();
       if (state.selected && $("#detailDialog").open) fillDetail(state.selected);
-      setSync("● 실시간 동기화", true);
-    }, error => { console.error(error); setSync("서버 연결 실패"); toast("Firebase 연결을 확인해 주세요."); });
+    }, error => { console.error(error); toast("Firebase 연결을 확인해 주세요."); });
 }
 
 onAuthStateChanged(auth,async user=>{
